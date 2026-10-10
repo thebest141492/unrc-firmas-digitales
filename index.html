@@ -31,8 +31,8 @@ async function loadShared(){
  if(!Array.isArray(rows))throw new Error('La consulta no devolvió una lista válida.');
  sharedIds=new Set(rows.map(r=>r.id));
  document.querySelectorAll('input[id^="name_"]').forEach(el=>el.value='');document.querySelectorAll('input[id^="date_"]').forEach(el=>el.value='');document.querySelectorAll('.sign').forEach(el=>el.replaceChildren());
- rows.slice(0,22).forEach((r,i)=>{const n=$('name_'+i),d=$('date_'+i),sig=document.querySelectorAll('.sign')[i];if(n)n.value=r.nombre_completo||'';if(d)d.value=dateToDMY(r.fecha||'');if(sig){sig.dataset.recordId=r.id||'';if(r.firma_data){const im=new Image();im.src=r.firma_data;im.alt='Firma guardada';sig.replaceChildren(im)}}});
- if(rows.length>22)alert('Hay '+rows.length+' firmas guardadas y el documento tiene 22 filas. Las primeras 22 se muestran en la hoja.');
+ rows.slice(0,40).forEach((r,i)=>{const n=$('name_'+i),d=$('date_'+i),sig=document.querySelectorAll('.sign')[i];if(n)n.value=r.nombre_completo||'';if(d)d.value=dateToDMY(r.fecha||'');if(sig){sig.dataset.recordId=r.id||'';if(r.firma_data){const im=new Image();im.src=r.firma_data;im.alt='Firma guardada';sig.replaceChildren(im)}}});
+ if(rows.length>40)alert('Hay '+rows.length+' firmas guardadas y el documento tiene 40 filas. Las primeras 40 se muestran en la hoja.');
  return rows.length;
 }
 async function syncShared(){
@@ -52,11 +52,11 @@ async function syncShared(){
 
 PAGE_IMAGES.forEach((src,i)=>{const page=document.createElement('div');page.className='page';page.dataset.page=i+1;const img=document.createElement('img');img.className='bg';img.src=src;img.alt='Página original '+(i+1);page.append(img);const overlay=document.createElement('div');overlay.className='overlay';page.append(overlay);pages.append(page);if(i===2)installTableFields(overlay);});
 function installTableFields(overlay){
- // Campos editables para docente, horario y semestre, colocados como en la imagen de referencia.
+ // Campos editables para docente, horario y semestre, colocados sobre las líneas del documento.
  const teacherFields = [
-   {label:'Nombre del docente', key:'docente_unrc', x:0.12, y:0.088, w:0.64},
-   {label:'Horario', key:'horario_unrc', x:0.12, y:0.119, w:0.64},
-   {label:'Semestre', key:'semestre_unrc', x:0.12, y:0.150, w:0.64}
+   {label:'Nombre del docente', key:'docente_unrc', x:0.19, y:0.088, w:0.58},
+   {label:'Horario', key:'horario_unrc', x:0.14, y:0.116, w:0.65},
+   {label:'Semestre', key:'semestre_unrc', x:0.15, y:0.145, w:0.64}
  ];
  teacherFields.forEach(f=>{
    const el=document.createElement('input'); el.type='text'; el.className='teacher-field'; el.dataset.key=f.key;
@@ -66,7 +66,7 @@ function installTableFields(overlay){
    el.value=localStorage.getItem(f.key)||''; overlay.append(el);
  });
  // Coordenadas medidas sobre la imagen original renderizada de 935 x 1210 px.
- const x0=0.1200, x1=0.5350, x2=0.6660, x3=0.8610, y0=0.1740, rowH=0.0181, count=40;
+ const x0=0.1206, x1=0.5360, x2=0.6660, x3=0.8610, y0=0.1693, rowH=0.0177, count=40;
  const img=overlay.parentElement.querySelector('img.bg');
  function place(el,x,y,w,h){el.style.left=(x*100)+'%';el.style.top=(y*100)+'%';el.style.width=(w*100)+'%';el.style.height=(h*100)+'%';}
  for(let r=0;r<count;r++){
