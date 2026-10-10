@@ -52,11 +52,11 @@ async function syncShared(){
 
 PAGE_IMAGES.forEach((src,i)=>{const page=document.createElement('div');page.className='page';page.dataset.page=i+1;const img=document.createElement('img');img.className='bg';img.src=src;img.alt='Página original '+(i+1);page.append(img);const overlay=document.createElement('div');overlay.className='overlay';page.append(overlay);pages.append(page);if(i===2)installTableFields(overlay);});
 function installTableFields(overlay){
- // Campos editables para docente, horario y semestre, colocados sobre las líneas del documento.
+ // Campos editables para docente, horario y semestre, colocados como en la imagen de referencia.
  const teacherFields = [
-   {label:'Nombre del docente', key:'docente_unrc', x:0.34, y:0.184, w:0.45},
-   {label:'Horario', key:'horario_unrc', x:0.22, y:0.214, w:0.57},
-   {label:'Semestre', key:'semestre_unrc', x:0.23, y:0.244, w:0.56}
+   {label:'Nombre del docente', key:'docente_unrc', x:0.12, y:0.088, w:0.64},
+   {label:'Horario', key:'horario_unrc', x:0.12, y:0.119, w:0.64},
+   {label:'Semestre', key:'semestre_unrc', x:0.12, y:0.150, w:0.64}
  ];
  teacherFields.forEach(f=>{
    const el=document.createElement('input'); el.type='text'; el.className='teacher-field'; el.dataset.key=f.key;
@@ -66,7 +66,7 @@ function installTableFields(overlay){
    el.value=localStorage.getItem(f.key)||''; overlay.append(el);
  });
  // Coordenadas medidas sobre la imagen original renderizada de 935 x 1210 px.
- const x0=0.1390, x1=0.5444, x2=0.6727, x3=0.8610, y0=0.2736, rowH=0.0186, count=22;
+ const x0=0.1200, x1=0.5350, x2=0.6660, x3=0.8610, y0=0.1740, rowH=0.0181, count=40;
  const img=overlay.parentElement.querySelector('img.bg');
  function place(el,x,y,w,h){el.style.left=(x*100)+'%';el.style.top=(y*100)+'%';el.style.width=(w*100)+'%';el.style.height=(h*100)+'%';}
  for(let r=0;r<count;r++){
